@@ -248,4 +248,34 @@ router.put('/agregar-favoritos', (req, res) => {
     });
 });
 
+router.put('/quitar-favoritos', (req, res) => {
+    // Recibe el _id de la rutina, y la lista de _ids de los ejercicios a eliminar
+    let usuario = JSON.parse(req.body.usuario);
+    let cancion = JSON.parse(req.body.cancion);
+    Usuario.findById(usuario, (err, usuario_db) => {
+        if (err) {
+            res.json({
+                msj: 'La rutina no se encontró',
+                err
+            });
+        } else {
+            console.log(usuario_db)
+            usuario_db.lista_fav.pull(cancion)
+            usuario_db.save((err, usuario) => {
+                if (err) {
+                    res.json({
+                        msj: 'La rutina no se pudo registrar',
+                        err
+                    });
+                } else {
+                    res.json({
+                        msj: 'La rutina se registró correctamente',
+                        usuario
+                    });
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;
