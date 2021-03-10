@@ -208,7 +208,7 @@ router.post('/agregar-lista-usuario', (req, res) => {
 router.put('/agregar-cancion-lista', (req, res) => {
     let usuario = JSON.parse(req.body.usuario);
     let lista = JSON.parse(req.body.lista);
-    Usuario.updateOne({ _id: usuario._id }, {
+    Usuario.updateOne({ _id: usuario }, {
         $set: {
             'lista_reproduccion': lista,
         }
@@ -259,7 +259,6 @@ router.put('/quitar-favoritos', (req, res) => {
                 err
             });
         } else {
-            console.log(usuario_db)
             usuario_db.lista_fav.pull(cancion)
             usuario_db.save((err, usuario) => {
                 if (err) {
