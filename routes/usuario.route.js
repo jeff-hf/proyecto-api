@@ -249,7 +249,6 @@ router.put('/agregar-favoritos', (req, res) => {
 });
 
 router.put('/quitar-favoritos', (req, res) => {
-    // Recibe el _id de la rutina, y la lista de _ids de los ejercicios a eliminar
     let usuario = JSON.parse(req.body.usuario);
     let cancion = JSON.parse(req.body.cancion);
     Usuario.findById(usuario, (err, usuario_db) => {
